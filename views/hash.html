@@ -1,0 +1,52 @@
+<style>
+    ul{
+        margin:0;
+        padding:0;
+    }
+
+    li{
+        list-style: none;
+        display: block;
+        float: left;
+        border: 1px solid #000;
+        padding: 10px;
+        margin-right: 20px;
+        cursor: pointer;
+    }
+
+    li.active{
+        background-color: #000000;
+        color: #fff;
+    }
+</style>
+
+<ul>
+    <li data-id="1">1</li>
+    <li data-id="2">2</li>
+</ul>
+
+<script type="text/javascript">
+    function sendAjax(hash){
+        console.log("recived data:" + hash);
+    }
+
+    function btnStatus(hash){
+        $("li").removeClass('active');
+        $("li[data-id="+hash+"]").addClass('active');
+    }
+
+    function onHashChange(){
+        var curHash = window.location.hash.replace("#","");
+        if(curHash){
+            btnStatus(curHash);
+            sendAjax(curHash);
+        }
+    }
+
+    window.onhashchange = onHashChange;
+
+    $("li").click(function(){
+        var id = $(this).attr('data-id');
+        window.location.hash = id;
+    });
+</script>
